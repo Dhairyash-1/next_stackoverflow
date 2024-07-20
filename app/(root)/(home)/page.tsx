@@ -5,44 +5,13 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filter";
-import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
+import { getQuestions } from "@/lib/actions/question.action";
 
-const questions = [
-  {
-    _id: "1",
-    title: "How to use data fetching in server component",
-    tags: [
-      { _id: "1", name: "Next.JS" },
-      { _id: "2", name: "PostgreSQL" },
-    ],
-    author: { _id: "1", name: "Jhon Doe", picture: "" },
-    upvotes: 10000,
-    views: 23,
-    answers: [],
-    createdAt: new Date("2022-07-18T15:21:21.617Z"),
-  },
-  {
-    _id: "2",
-    title: "How to center a Div",
-    tags: [
-      { _id: "1", name: "CSS" },
-      { _id: "2", name: "HTML" },
-    ],
-    author: {
-      _id: "1",
-      name: "christophar nolan",
-      picture: "",
-    },
-    upvotes: 154540,
-    views: 22123,
-    answers: [],
-    createdAt: new Date("2024-07-18T15:21:21.617Z"),
-  },
-];
+const Home = async () => {
+  const result = await getQuestions({});
 
-const Home = () => {
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center ">
@@ -69,8 +38,8 @@ const Home = () => {
       </div>
       <HomeFilter />
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions.length > 0 ? (
-          questions.map((question) => (
+        {result!.questions.length > 0 ? (
+          result?.questions.map((question) => (
             <QuestionCard
               key={question._id}
               _id={question._id}
