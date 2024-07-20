@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { HomePageFilters } from "@/constants/filter";
 
 const HomeFilter = () => {
+  // eslint-disable-next-line no-unused-vars
   const [active, setActive] = useState("");
   return (
     <div className="mt-10 hidden flex-wrap gap-3 md:flex">
