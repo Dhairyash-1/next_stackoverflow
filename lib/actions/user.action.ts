@@ -5,6 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetAllUsersParams,
   GetUserByIdParams,
   UpdateUserParams,
 } from "./shared.types";
@@ -72,5 +73,19 @@ export async function deleteUser(userData: DeleteUserParams) {
     return deletedUser;
   } catch (error) {
     console.log("Failed to delete user", error);
+  }
+}
+
+export async function getAllUsers(params: GetAllUsersParams) {
+  try {
+    const { page = 1, pageSize = 20, searchQuery, filter } = params;
+
+    const users = await User.find().select("-password").sort({ createdAt: -1 });
+    if (!users) {
+      throw new Error("users not found");
+    }
+    return { users };
+  } catch (error) {
+    console.log("error", error);
   }
 }
